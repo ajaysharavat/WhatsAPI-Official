@@ -117,7 +117,8 @@ function createVideoIcon($file)
     if (checkFFMPEG()) {
         //generate thumbnail
         $preview = sys_get_temp_dir() . '/' . md5($file) . '.jpg';
-        @unlink($preview);
+        if(is_file($preview))
+            @unlink($preview);
 
         //capture video preview
         $command = "ffmpeg -i \"" . $file . "\" -f mjpeg -ss 00:00:01 -vframes 1 \"" . $preview . "\"";
